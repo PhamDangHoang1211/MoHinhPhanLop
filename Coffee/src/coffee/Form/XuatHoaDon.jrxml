@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1dacfd25-6a84-4bb9-9360-c68444b03d7b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="BillId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     bills.`id` AS bills_id,
+     bills.`date` AS bills_date,
+     bills.`total` AS bills_total,
+     orders.`id` AS orders_id,
+     orders.`product` AS orders_product,
+     orders.`total` AS orders_total,
+     orders.`qty` AS orders_qty,
+     orders.`size` AS orders_size,
+     staff.`firstname` AS staff_firstname,
+     staff.`lastname` AS staff_lastname,
+     orders.`cashier_id` AS orders_cashier_id
+FROM
+     `bills` bills INNER JOIN `orders` orders ON bills.`id` = orders.`bill_id`
+     INNER JOIN `user` user ON orders.`cashier_id` = user.`staff_id`
+     INNER JOIN `staff` staff ON user.`staff_id` = staff.`id`
+WHERE
+     bills.`id` = $P{BillId}]]>
+	</queryString>
+	<field name="bills_id" class="java.lang.Integer"/>
+	<field name="bills_date" class="java.lang.String"/>
+	<field name="bills_total" class="java.lang.Integer"/>
+	<field name="orders_id" class="java.lang.Integer"/>
+	<field name="orders_product" class="java.lang.String"/>
+	<field name="orders_total" class="java.lang.Integer"/>
+	<field name="orders_qty" class="java.lang.Integer"/>
+	<field name="orders_size" class="java.lang.String"/>
+	<field name="staff_firstname" class="java.lang.String"/>
+	<field name="staff_lastname" class="java.lang.String"/>
+	<field name="orders_cashier_id" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="52b11a81-8877-4f59-9a97-e28c1e7d01ef" x="185" y="1" width="173" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HÓA ĐƠN BÁN HÀNG]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="15607a30-60de-4210-b35e-4352b07080ce" x="0" y="0" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[BILL ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1d8dd3f1-af98-4c94-a335-14500cb4d340" x="80" y="0" width="100" height="20" forecolor="#FF3300"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{bills_id}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4935e93a-4139-4fff-af14-84c1f05a0d04" x="0" y="0" width="49" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1aa83d10-4c20-4df5-838f-f403ceb2aee5" x="49" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{bills_date}.toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="79cd563e-763d-45c6-816e-97f8136c3fb6" x="336" y="0" width="49" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cashier]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ad715db5-3a29-48f2-a560-fadb4f379572" x="385" y="0" width="61" height="20" forecolor="#FF3333"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{staff_firstname}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad715db5-3a29-48f2-a560-fadb4f379572" x="446" y="0" width="66" height="20" forecolor="#FF3300"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{staff_lastname}.toString()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="9cbee60b-2418-48c4-bafa-d8f80d0a3949" x="0" y="20" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="74b29402-5926-4435-849e-ab6284f4f843" mode="Opaque" x="0" y="21" width="309" height="20" backcolor="#CCCCFF"/>
+				<textElement/>
+				<text><![CDATA[                 Product]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="74b29402-5926-4435-849e-ab6284f4f843" mode="Opaque" x="309" y="21" width="61" height="21" backcolor="#CCCCFF"/>
+				<textElement/>
+				<text><![CDATA[Size]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="74b29402-5926-4435-849e-ab6284f4f843" mode="Opaque" x="370" y="21" width="74" height="20" backcolor="#CCCCFF"/>
+				<textElement/>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="74b29402-5926-4435-849e-ab6284f4f843" mode="Opaque" x="444" y="21" width="111" height="20" backcolor="#CCCCFF"/>
+				<textElement/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="9cbee60b-2418-48c4-bafa-d8f80d0a3949" x="0" y="41" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="52" splitType="Stretch">
+			<line>
+				<reportElement uuid="5c81fb88-a25f-4846-919a-2aba8c803f6c" x="2" y="19" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="3bd36a7b-c306-4290-8578-d94fa9e26ba8" x="49" y="1" width="260" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{orders_product}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5402252d-6875-46a6-b417-98434e1589b7" x="311" y="0" width="61" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{orders_size}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5402252d-6875-46a6-b417-98434e1589b7" x="372" y="0" width="74" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{orders_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5402252d-6875-46a6-b417-98434e1589b7" x="446" y="1" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{orders_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5402252d-6875-46a6-b417-98434e1589b7" mode="Transparent" x="446" y="0" width="74" height="20" forecolor="#FF3300" backcolor="#FF3300"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{bills_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="15607a30-60de-4210-b35e-4352b07080ce" x="366" y="0" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[TOTAL :]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a0421df0-66c4-4eb9-bac3-aabcf029edd8" mode="Opaque" x="1" y="1" width="554" height="20" backcolor="#CCCCFF"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement uuid="bd61205f-16df-436f-98a0-46e9ea1f0363" x="0" y="1" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a9fa793d-c4dc-4b23-9709-f8a6afbc9277" x="457" y="1" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20" splitType="Stretch"/>
+	</summary>
+</jasperReport>
